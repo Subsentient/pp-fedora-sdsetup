@@ -1,17 +1,26 @@
 # <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Fedora_logo.svg/200px-Fedora_logo.svg.png" width="25" height="25"> PinePhone Fedora Setup
 
-A collection of scripts that correctly sets up Fedora to run off your PinePhone SD card. Soon to be part of the Fedora Mobility SIG.
+## **Look out**
+This is a butchered version of the repo it is forked from. It assumes /dev/loop0 and /dev/loop1 are unused!!!
+Make absolutely sure this is the case with lsblk before you use this!
+You are expected to copy and unxz a Fedora minimal image to ~/fedora-pinephone.img right now.
 
-## **🚨🚨🚨 WARNING! 🚨🚨🚨** 
-This is a **barely tested** collection of scripts written by someone who has never written a bash script for other people to use! It involves the **dd** command and **sudo**. This is **VERY DANGEROUS** - please do not run it unless you have read and fully understood what it will do. Better yet, read the scripts to learn how to install the image manually.
+This is designed for personal use, but it's probably more than usable for you too, if you examine it carefully.
+
+## Differences
+* Uses Fedora 32 instead of Rawhide, doesn't enable a copr repo
+* Uses ext4 for the root filesystem instead of f2fs
+* Disables SELinux
+* Uses XFCE4 and LightDM for the GUI (Xorg based)
+* Installs firefox, avahi, hexchat, and a few other minimal things I use.
+* Deletes the password for root.
 
 ## Dependencies
 
 - wget
 - xz
-- f2fs-tools (for mkfs.f2fs)
+- e2fsprogs (for mkfs.ext4)
 - dosfstools (for mkfs.vfat)
-- rsync
 - uboot-tools (for mkimage)
 - qemu-user-static (for qemu-aarch64-static)
 
