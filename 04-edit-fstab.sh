@@ -42,7 +42,11 @@ then
 
     infecho "Disabling kernel updates..."
     cat files/dnf.conf > rootfs/etc/dnf/dnf.conf
-
+    
+    infecho "Adding resolv.conf..."
+	echo "nameserver 1.1.1.1" >> rootfs/etc/resolv.conf
+	echo "nameserver 1.0.0.1" >> rootfs/etc/resolv.conf
+	
     infecho "Tweaking gschemas..."
     mkdir -p rootfs/usr/share/glib-2.0/schemas/files/
     touch rootfs/usr/share/glib-2.0/schemas/files/90_pinephone.gschema.override

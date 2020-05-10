@@ -14,3 +14,4 @@ infecho "Adding user \"pine\"..."
 adduser pine
 passwd pine
 usermod -aG wheel pine
+passwd -d root

@@ -37,22 +37,22 @@ then
     mkdir -p rootfs
 
     infecho "Mounting Fedora image..."
-    losetup /dev/loop0 rawhide.raw
+    losetup /dev/loop0 ~/fedora-pinephone.img
     partprobe -s /dev/loop0
-    mount /dev/loop0p3 imgfs
+    mount /dev/loop0p3 imgfs -t ext4
 
     infecho "Mounting SD Card rootfs..."
     partprobe -s $PP_IMAGE
     sleep 1 # Sometimes it lags.
-    mount $PP_PARTB rootfs
+    mount /dev/loop1p2 rootfs -t ext4
 
     infecho "Copying files..."
-    rsync -a --progress imgfs/* rootfs/
+    cp -a imgfs/* rootfs/
 
     infecho "Unmounting everything..."
     umount /dev/loop0p3
     losetup -d /dev/loop0
-    umount $PP_PARTB
+    umount /dev/loop1p2
 
     infecho "Deleting temp directories..."
     rmdir imgfs

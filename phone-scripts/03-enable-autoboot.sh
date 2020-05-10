@@ -18,11 +18,7 @@ infecho "This DELETES the gnome-shell desktop file so that gdm boots"
 infecho "to phosh instead. This means you're wasting space keeping gnome-shell"
 infecho "on your sdcard. It's inefficient but it'll do for now."
 
-infecho "Deleting all xorg based sessions..."
-rm -fr /usr/share/xsessions/*
-
-infecho "Deleting gnome for wayland..."
-rm /usr/share/wayland-sessions/gnome.desktop
-
 infecho "Installing autologin (ASSUMING DEFAULT SCRIPT USERNAME = PINE)..."
-cat /root/gdm-custom.conf > /etc/gdm/custom.conf
+cat /root/lightdm.conf > /etc/lightdm/lightdm.conf
+echo "SELINUX=disabled" > /etc/selinux/config
+echo "SELINUXTYPE=targeted" >> /etc/selinux/config

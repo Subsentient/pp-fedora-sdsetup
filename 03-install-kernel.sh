@@ -60,7 +60,7 @@ then
     cp pp-5.6/board.itb bootfs/
 
     infecho "Installing kernel modules..."
-    rsync -a --progress pp-5.6/modules/lib/modules/* rootfs/lib/modules/
+    cp -a pp-5.6/modules/lib/modules/* rootfs/lib/modules/
 
     infecho "Unmounting SD card partitions..."
     umount $PP_PARTA

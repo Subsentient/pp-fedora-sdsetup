@@ -31,14 +31,10 @@ read -p "Continue? [y/N] " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    infecho "Begining image partition..."
-    sfdisk $OUT_NAME <<EOF
-label: dos
-unit: sectors
-
-4MiB,252MiB,
-256MiB,,
-EOF
+    infecho "Beginning image partition..."
+    parted $OUT_NAME mktable msdos
+    parted $OUT_NAME mkpart p fat16 4MiB 256MiB
+    parted $OUT_NAME "mkpart p ext4 256MiB -1"
     infecho "Image partitioned!"
 
     infecho "Mounting the image to loop1..."
@@ -47,8 +43,8 @@ EOF
 
     infecho "Beginning filesystem creation..."
     infecho "If this fails, you might need to install mkfs.f2fs, which is usually called f2fs-tools."
-    mkfs.vfat -n BOOT $PP_PARTA
-    mkfs.f2fs -f -l ROOT $PP_PARTB
+    mkfs.vfat -n BOOT /dev/loop1p1
+    mkfs.ext4 -L ROOT /dev/loop1p2
     infecho "Filesystems created!"
 fi
 

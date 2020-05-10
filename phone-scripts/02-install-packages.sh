@@ -14,22 +14,15 @@ errecho () {
     exit 1
 }
 
-infecho "This adds my COPR repository (njha/mobile) and installs phone related packages."
-infecho "Only functional on Fedora Rawhide."
-infecho "HEAVY WIP, untested"
+infecho "Installing XFCE and other recommended packages..."
+dnf install -y @xfce onboard tilix screen nano lightdm firefox mousepad hexchat geany ModemManager \
+    f2fs-tools NetworkManager-wwan avahi fuse-sshfs fuse-encfs squashfs-tools gcc gcc-c++ make cmake \
+    --repo=fedora --repo=updates
 
-infecho "Enabling COPR repository..."
-dnf copr enable njha/mobile
-
-infecho "Installing recommended packages..."
-dnf install feedbackd phoc phosh squeekboard gdm ModemManager gnome-terminal rtl8723cs-firmware \
-    f2fs-tools chatty calls carbons purple-mm-sms pinephone-helpers evolution-data-server \
-    f31-backgrounds-gnome kgx epiphany gnome-contacts evolution cheese NetworkManager-wwan
-
-infecho "Enabling graphical boot and GDM..."
+infecho "Enabling graphical boot and LightDM..."
 systemctl disable initial-setup.service
-systemctl enable gdm
+systemctl enable lightdm
 systemctl set-default graphical.target
 
 infecho "Upgrading packages..."
-dnf update --exclude="kernel kernel-core kernel-modules"
+dnf update --exclude="kernel kernel-core kernel-modules" -y --refresh

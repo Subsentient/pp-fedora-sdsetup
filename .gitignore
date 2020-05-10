@@ -1,0 +1,6 @@
+**/*.img
+pp-*
+**/*.tar.*
+**/*.zst
+rootfs
+imgfs

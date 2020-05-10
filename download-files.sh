@@ -13,7 +13,12 @@ then
     # Download kernel
     wget https://xff.cz/kernels/5.6/pp.tar.gz -O pp.tar.gz
     tar xf pp.tar.gz
-
+	
+	if [ -f ~/fedora-pinephone.img ]
+	then
+		echo "fedora-pinephone.img already present, not redownloading."
+		exit 0
+	fi
     # Get latest rawhide from repo when not set in .env
     if [ -z "$FEDORA_RAW_FILE" ]
     then
@@ -36,6 +41,6 @@ then
     fi
 
     # Download fedora
-    wget $FEDORA_RAW_SOURCE/$FEDORA_RAW_FILE -O rawhide.raw.xz
-    xz --decompress rawhide.raw.xz
+    wget $FEDORA_RAW_SOURCE/$FEDORA_RAW_FILE -O ~/fedora-pinephone.img.xz
+    xz --decompress ~/fedora-pinephone.img.xz
 fi
